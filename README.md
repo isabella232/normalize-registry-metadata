@@ -2,7 +2,7 @@
 clean some common fields in package metadata objects you get from registry changes feeds
 
 
-```
+```js
 var clean = require('normalize-registry-metadata')
 var request = require('request')
 request.get('https://skimdb.npmjs.com/registry/shelljs',function(err,res,body){
