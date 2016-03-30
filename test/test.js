@@ -68,3 +68,11 @@ test("undefined goes in undefined comes out",function(t){
   t.end()
 })
 
+test("tarballUrl options",function(t){
+  normalize(spaceTag,{tarballUrl:{protocol:'https:'}})
+
+  t.equals(spaceTag.versions['1.4.0'].dist.tarball,'https://registry.npmjs.org/twilio/-/twilio-1.4.0.tgz','protocol should be rewritten')  
+
+  t.end()
+})
+

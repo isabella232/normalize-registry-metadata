@@ -1,8 +1,10 @@
 var semver = require('semver')
+var url = require('url')
 
 module.exports = fix
 
-function fix(doc){
+function fix(doc,options){
+  options = options||{}
   if(!doc || !doc._id || doc._id.indexOf('_design/') === 0) return;
 
   if(doc._deleted === true || doc.error == "not_found" && doc.reason == 'deleted'){
@@ -48,6 +50,16 @@ function fix(doc){
         doc.time[cleaned] = doc.time[k]
         delete doc.time[k]
 
+      }
+
+      if(options.tarballUrl){
+        if(doc.versions[cleaned].dist && doc.versions[cleaned].dist.tarball){
+          var parsed = url.parse(doc.versions[cleaned].dist.tarball)
+          Object.keys(options.tarballUrl).forEach(function(k){
+            parsed[k] = options.tarballUrl[k]
+          })
+          doc.versions[cleaned].dist.tarball = url.format(parsed)  
+        }
       }
 
     })
