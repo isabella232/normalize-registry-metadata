@@ -25,6 +25,14 @@ request.get('https://skimdb.npmjs.com/registry/shelljs',function(err,res,body){
 
 ```
 
+# API
+
+normalize(doc [,optional options {}])
+
+- options.tarballUrl
+  - if you need to rewrite the tarball url to point to another server the values in this object are set to the corresponding key in the parsed tarball url then passed to url.format
+
+- if the document is invalid this will return `undefined`
 
 - runs semver.clean on all versions. 
     - `doc.version[version]`
