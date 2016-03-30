@@ -1,6 +1,6 @@
 {
   "name": "normalize-registry-metadata",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "clean package metadata objects you get from registry changes feeds",
   "main": "index.js",
   "scripts": {
