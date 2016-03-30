@@ -47,8 +47,10 @@ function fix(doc,options){
 
         // clean time
         // !!! NOTE: registry couchapp does not clean the versions inside the time object.
-        doc.time[cleaned] = doc.time[k]
-        delete doc.time[k]
+        if(doc.time && doc.time[k]) {
+          doc.time[cleaned] = doc.time[k]
+          delete doc.time[k]
+        }
 
       }
 
