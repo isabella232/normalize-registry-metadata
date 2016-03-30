@@ -31,6 +31,8 @@ function fix(doc,options){
       if(doc.versions[k].ctime) delete doc.versions[k].ctime
       if(doc.versions[k].mtime) delete doc.versions[k].mtime
 
+      var version = doc.versions[k]
+
       // couchapp cleans all version strings on the way out
       var cleaned = semver.clean(k,true)
       if(cleaned && cleaned !== k) {
@@ -39,7 +41,7 @@ function fix(doc,options){
         map[k] = cleaned
 
         // clean the version
-        doc.versions[cleaned] = doc.versions[k]
+        doc.versions[cleaned] = version
         delete doc.versions[k]
         doc.versions[cleaned].version = cleaned
 
@@ -55,12 +57,12 @@ function fix(doc,options){
       }
 
       if(options.tarballUrl){
-        if(doc.versions[cleaned].dist && doc.versions[cleaned].dist.tarball){
-          var parsed = url.parse(doc.versions[cleaned].dist.tarball)
+        if(version.dist && version.dist.tarball){
+          var parsed = url.parse(version.dist.tarball)
           Object.keys(options.tarballUrl).forEach(function(k){
             parsed[k] = options.tarballUrl[k]
           })
-          doc.versions[cleaned].dist.tarball = url.format(parsed)  
+          version.dist.tarball = url.format(parsed)  
         }
       }
 
